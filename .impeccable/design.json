@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-12T00:00:00.000Z",
+  "title": "Design System: Prompt Labs",
+  "extensions": {
+    "colorMeta": {
+      "canvas": { "role": "neutral", "displayName": "Canvas White", "canonical": "#ffffff", "tonalRamp": ["#000000", "#1c1c1c", "#383838", "#555555", "#767676", "#9a9a9a", "#dcdcdc", "#ffffff"] },
+      "ink": { "role": "primary", "displayName": "Pure Ink", "canonical": "#000000", "tonalRamp": ["#000000", "#1c1c1c", "#383838", "#555555", "#767676", "#9a9a9a", "#dcdcdc", "#ffffff"] },
+      "surface": { "role": "neutral", "displayName": "Surface Mist", "canonical": "#f5f5f5", "tonalRamp": ["#000000", "#1c1c1c", "#383838", "#555555", "#767676", "#9a9a9a", "#dcdcdc", "#f5f5f5"] },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#dcdcdc", "tonalRamp": ["#000000", "#1c1c1c", "#383838", "#555555", "#767676", "#9a9a9a", "#dcdcdc", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display Grotesk", "purpose": "Page titles and section anchors. Tight tracking, balanced wrap." },
+      "body": { "displayName": "Body Sans", "purpose": "Paragraphs, descriptions, form help, UI labels." },
+      "mono": { "displayName": "Data Mono", "purpose": "Data and measurement only: timestamps, counts, IDs, handles, variables, shortcuts." }
+    },
+    "shadows": [
+      { "name": "dialog", "value": "0 24px 48px -12px rgb(0 0 0 / 0.18), 0 0 0 1px #000000", "purpose": "Modals and confirm dialogs only. The 1px ink ring preserves monochrome discipline in elevation." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing for entrance and state transitions." }
+    ],
+    "breakpoints": [
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink-filled primary action. Inverts to canvas on active.",
+      "html": "<button class=\"ds-btn-primary\">New prompt</button>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:36px; padding:0 14px; background:#000; color:#fff; border:1px solid #000; border-radius:2px; font-family:Archivo,sans-serif; font-size:14px; font-weight:500; cursor:pointer; transition:background 150ms ease; } .ds-btn-primary:hover { background:#1a1a1a; } .ds-btn-primary:active { background:#fff; color:#000; } .ds-btn-primary:focus-visible { outline:2px solid #000; outline-offset:2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outlined secondary action on canvas.",
+      "html": "<button class=\"ds-btn-secondary\">Cancel</button>",
+      "css": ".ds-btn-secondary { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:36px; padding:0 14px; background:#fff; color:#000; border:1px solid #000; border-radius:2px; font-family:Archivo,sans-serif; font-size:14px; font-weight:500; cursor:pointer; transition:background 150ms ease; } .ds-btn-secondary:hover { background:#f5f5f5; } .ds-btn-secondary:focus-visible { outline:2px solid #000; outline-offset:2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Standard text field. Hairline border at rest, ink on focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"you@example.com\" />",
+      "css": ".ds-input { display:block; width:100%; height:36px; padding:0 12px; background:#fff; color:#000; border:1px solid #dcdcdc; border-radius:2px; font-family:Archivo,sans-serif; font-size:14px; } .ds-input::placeholder { color:#767676; } .ds-input:focus { border-color:#000; outline:2px solid #000; outline-offset:2px; }"
+    },
+    {
+      "name": "Filter Chip / Tag",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Metadata tag. Ink-filled when active/filtering.",
+      "html": "<span class=\"ds-chip\">review</span> <span class=\"ds-chip ds-chip-active\">coding</span>",
+      "css": ".ds-chip { display:inline-flex; align-items:center; padding:2px 8px; background:#fff; color:#555; border:1px solid #dcdcdc; border-radius:2px; font-family:Archivo,sans-serif; font-size:12px; } .ds-chip-active { background:#000; color:#fff; border-color:#000; }"
+    },
+    {
+      "name": "Nav Item (active)",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Sidebar navigation item in active state — inverted to ink.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item\">Home</a><a class=\"ds-nav-item ds-nav-active\">My Library</a><a class=\"ds-nav-item\">Explore</a></nav>",
+      "css": ".ds-nav { display:flex; flex-direction:column; gap:2px; } .ds-nav-item { display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; color:#555; border-radius:2px; font-family:Archivo,sans-serif; font-size:14px; text-decoration:none; transition:background 150ms ease; } .ds-nav-item:hover { background:#f5f5f5; color:#000; } .ds-nav-active, .ds-nav-active:hover { background:#000; color:#fff; }"
+    },
+    {
+      "name": "Dot-Matrix Wordmark",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature dot-matrix logo mark built from a CSS radial-gradient grid — the grammar of the whole system.",
+      "html": "<span class=\"ds-dotmark\"></span>",
+      "css": ".ds-dotmark { display:inline-block; width:24px; height:24px; background-image: radial-gradient(circle, #000 1px, transparent 1px); background-size: 5px 5px; }"
+    },
+    {
+      "name": "Variable Chip (fill preview)",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Filled slot renders as an inverted ink block; empty slot stays dashed. Signature of the fill workspace.",
+      "html": "<span class=\"ds-var-filled\">Q4 roadmap</span> <span class=\"ds-var-empty\">{{topic}}</span>",
+      "css": ".ds-var-filled { background:#000; color:#fff; padding:1px 3px; font-family:'IBM Plex Mono',monospace; font-size:13.5px; } .ds-var-empty { border:1px dashed #000; color:#555; padding:1px 3px; font-family:'IBM Plex Mono',monospace; font-size:13.5px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Precision Instrument",
+    "overview": "Prompt Labs is a working tool, not a showcase. Its personality is disciplined monochrome utility: pure white ground, black ink, hairline structure, and a dot-matrix vocabulary borrowed from dot-matrix printing and Nothing's dot-matrix design language. The aesthetic refuses the category default of colorful AI-dashboard card grids, gradient hero sheen, and chart decoration on a tool whose value is text.\n\nEverything is built on a 4px rhythm with dense interior grouping and generous exterior separation. Corners are barely rounded (2px), borders are hairline, and shadows are essentially absent except for dialogs. The dot system is a parameterized primitive family — never wallpaper behind body text, inputs, or navigation labels.",
+    "keyCharacteristics": [
+      "Strict monochrome, light-only; no hues, no gradients, no dark mode",
+      "Dot-matrix as grammar of structure, not decoration",
+      "Rows over cards; text over imagery",
+      "Three type voices: display grotesk, body sans, data mono",
+      "WCAG 2.2 AA contrast throughout"
+    ],
+    "rules": [
+      { "name": "The Monochrome Rule", "body": "No hue enters the system. Emphasis comes from weight, size, or ink/canvas inversion — never color.", "section": "colors" },
+      { "name": "The Line Rule", "body": "Structure is drawn with 1px hairlines (#dcdcdc) and strong rules (1px #000000). Never thicker than 1px except the 2px focus ring.", "section": "colors" },
+      { "name": "The Mono Rule", "body": "Mono type is for data and measurement only — IDs, timestamps, counts, handles, variable placeholders, keyboard shortcuts, status codes. Never for headings, buttons, or body prose.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Nothing casts a shadow at rest. Shadows appear only on dialogs — elements that must lift off the working surface to demand a decision.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep every surface pure monochrome — ink (#000000) on canvas (#ffffff) with ink-2 (#555555) and ink-3 (#767676) for secondary and muted text.",
+      "Do structure pages with hairline rules (1px #dcdcdc) and strong rules (1px #000000), not shadows or cards.",
+      "Do use IBM Plex Mono for data and measurement only: timestamps, counts, IDs, handles, variable names, shortcuts, backend status.",
+      "Do render the dot-matrix system as grammar — wordmark, empty states, loaders, status dots — never as wallpaper behind readable text.",
+      "Do invert to ink fill / canvas text for active nav items, filled variable chips, and selection.",
+      "Do maintain 2px radius on controls; hairline borders at rest.",
+      "Do theme browser surfaces: selection (ink/canvas), caret, focus rings (2px ink outline, 2px offset), scrollbars (line thumb on canvas track)."
+    ],
+    "donts": [
+      "Don't introduce any hue, gradient, or dark mode. The system is light-only and strictly monochrome.",
+      "Don't use monospace for headings, buttons, or body prose — it is a data voice, not a costume.",
+      "Don't build pages from same-size cards of icon + heading + text. Use rows and hairline-ruled lists.",
+      "Don't put a kicker or eyebrow above a heading. The heading carries its own weight.",
+      "Don't use hard offset shadows (box-shadow: 4px 4px 0) — the world is flat, not neobrutalist.",
+      "Don't place dot-matrix fields behind body text, inputs, or navigation labels.",
+      "Don't exceed 1px border width except the 2px focus ring.",
+      "Don't invent metrics, ratings, or social proof. Every number shown is a real count of the user's own data."
+    ]
+  }
+}

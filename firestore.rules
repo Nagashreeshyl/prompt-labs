@@ -1,0 +1,64 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(ownerId) {
+      return signedIn() && request.auth.uid == ownerId;
+    }
+
+    function validPrompt(data) {
+      return data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.description is string && data.description.size() <= 2000
+        && data.content is string && data.content.size() > 0 && data.content.size() <= 100000
+        && data.category is string && data.category.size() <= 100
+        && data.tags is list && data.tags.size() <= 20
+        && data.visibility in ['private', 'public'];
+    }
+
+    // Prompts: private to owner; public prompts readable by any signed-in user.
+    // Only the owner may create, update, publish, unpublish, or delete.
+    match /prompts/{promptId} {
+      allow read: if isOwner(resource.data.ownerId)
+        || (signedIn() && resource.data.visibility == 'public');
+
+      allow create: if isOwner(request.resource.data.ownerId)
+        && validPrompt(request.resource.data);
+
+      allow update: if isOwner(resource.data.ownerId)
+        && request.resource.data.ownerId == resource.data.ownerId
+        && validPrompt(request.resource.data);
+
+      allow delete: if isOwner(resource.data.ownerId);
+    }
+
+    // Collections: always private, single owner.
+    match /collections/{collectionId} {
+      allow read: if isOwner(resource.data.ownerId);
+      allow create: if isOwner(request.resource.data.ownerId)
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0;
+      allow update: if isOwner(resource.data.ownerId)
+        && request.resource.data.ownerId == resource.data.ownerId;
+      allow delete: if isOwner(resource.data.ownerId);
+    }
+
+    // User profile + strictly personal state (favorites, recents).
+    // Never readable or writable by anyone else; never stored on prompt docs.
+    match /users/{userId} {
+      allow read, create, update, delete: if isOwner(userId);
+
+      match /favorites/{promptId} {
+        allow read, create, delete, update: if isOwner(userId);
+      }
+
+      match /recents/{promptId} {
+        allow read, create, delete, update: if isOwner(userId);
+      }
+    }
+  }
+}
