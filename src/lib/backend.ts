@@ -8,7 +8,7 @@ import type {
   UserProfile,
 } from "@/lib/types";
 
-export type BackendKind = "firebase" | "local";
+export type BackendKind = "firebase";
 
 export interface Backend {
   readonly kind: BackendKind;
@@ -89,27 +89,13 @@ export function getBackend(): Promise<Backend> {
 }
 
 async function resolveBackend(): Promise<Backend> {
-  const forced = process.env.NEXT_PUBLIC_DATA_BACKEND;
-  if (forced === "local") {
-    const { localBackend } = await import("@/lib/adapters/local-adapter");
-    return localBackend;
-  }
-
   const { isFirebaseConfigured } = await import("@/lib/firebase");
-  if (forced !== "firebase" && !isFirebaseConfigured) {
-    const { localBackend } = await import("@/lib/adapters/local-adapter");
-    return localBackend;
+  if (!isFirebaseConfigured) {
+    throw new AppError(
+      "Firebase is not configured. Set the NEXT_PUBLIC_FIREBASE_* environment variables.",
+      "backend/not-configured",
+    );
   }
-
-  try {
-    const { firebaseBackend, probeFirebaseReady } = await import("@/lib/adapters/firebase-adapter");
-    const ready = await probeFirebaseReady();
-    if (ready) return firebaseBackend;
-    if (forced === "firebase") return firebaseBackend;
-  } catch {
-    if (forced === "firebase") throw new AppError("Firebase could not be reached.", "backend/unavailable");
-  }
-
-  const { localBackend } = await import("@/lib/adapters/local-adapter");
-  return localBackend;
+  const { firebaseBackend } = await import("@/lib/adapters/firebase-adapter");
+  return firebaseBackend;
 }

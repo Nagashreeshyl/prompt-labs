@@ -9,7 +9,7 @@ import { friendlyError } from "@/lib/backend";
 import { useStore } from "@/lib/store";
 
 export function ResetForm() {
-  const { backend, backendKind } = useStore();
+  const { backend } = useStore();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
@@ -52,12 +52,6 @@ export function ResetForm() {
             If an account exists for <span className="font-mono text-ink">{email}</span>, a password reset link is on its way.
             The link expires after a short time — request a new one if it does.
           </p>
-          {backendKind === "local" ? (
-            <p className="mt-4 border border-line bg-surface px-3.5 py-3 text-[13px] leading-snug text-ink-2">
-              The local demo backend has no mail delivery. Reset is a no-op here; sign in with the demo account or clear this
-              browser&rsquo;s stored data to start fresh.
-            </p>
-          ) : null}
           <Link
             href="/sign-in"
             className="mt-6 inline-flex h-9 items-center rounded-xs border border-ink px-3.5 text-sm font-medium hover:bg-surface"

@@ -8,13 +8,12 @@ import { DotLogo } from "@/components/dots/dots";
 import { Button } from "@/components/ui/button";
 import { FieldError, Input, Label } from "@/components/ui/field";
 import { friendlyError } from "@/lib/backend";
-import { DEMO_PASSWORD, DEMO_PROFILE } from "@/lib/seed-data";
 import { useStore } from "@/lib/store";
 
 export function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { backend, backendKind, user, authReady, toast } = useStore();
+  const { backend, user, authReady, toast } = useStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -114,7 +113,7 @@ export function SignInForm() {
       </form>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-2 text-[13px]">
-        <Link href="/auth/reset" className="underline underline-offset-4 hover:opacity-70">
+        <Link href="/reset" className="underline underline-offset-4 hover:opacity-70">
           Forgot password?
         </Link>
         <span className="text-ink-2">
@@ -124,24 +123,6 @@ export function SignInForm() {
           </Link>
         </span>
       </div>
-
-      {backendKind === "local" ? (
-        <div className="mt-8 border-t border-line pt-5">
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">Demo access</p>
-          <p className="mt-1.5 text-[13px] leading-snug text-ink-2">
-            The local demo backend ships with a seeded library, public prompts from demo authors, collections, and favorites.
-          </p>
-          <Button
-            className="mt-3"
-            onClick={() => {
-              setEmail(DEMO_PROFILE.email);
-              setPassword(DEMO_PASSWORD);
-            }}
-          >
-            Fill demo credentials
-          </Button>
-        </div>
-      ) : null}
     </div>
   );
 }

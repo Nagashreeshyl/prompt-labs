@@ -63,7 +63,7 @@ function normalizeTags(tags: string[]): string[] {
 export function PromptEditor({ prompt }: { prompt?: PromptDoc }) {
   const router = useRouter();
   const { guardedNav } = useNavGuard();
-  const { collections, savePrompt, toast, reportError, markDirty, backendKind } = useStore();
+  const { collections, savePrompt, toast, reportError, markDirty } = useStore();
 
   const [state, setState] = useState<EditorState>(() => (prompt ? stateFromPrompt(prompt) : emptyState()));
   const [baseline, setBaseline] = useState<string>(() => JSON.stringify(prompt ? stateFromPrompt(prompt) : emptyState()));
@@ -399,12 +399,6 @@ export function PromptEditor({ prompt }: { prompt?: PromptDoc }) {
                   ))}
                 </ul>
               )}
-              {backendKind === "local" ? (
-                <p className="mt-3 font-mono text-[11px] leading-snug text-ink-3">
-                  Local demo backend: prompts persist in this browser. Add Firebase keys and enable Email/Password to sync via
-                  Firestore.
-                </p>
-              ) : null}
             </div>
           </aside>
         </div>

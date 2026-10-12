@@ -88,7 +88,7 @@ export function Sidebar() {
       <div className="border-t border-line px-4 py-3">
         <div className="mb-2.5 flex items-center gap-2 font-mono text-[10.5px] text-ink-3">
           <DotMark pattern="row" muted dot={1.5} gap={1.6} />
-          {backendKind === "firebase" ? "Firebase backend" : backendKind === "local" ? "Local demo backend" : "Connecting…"}
+          {backendKind === "firebase" ? "Firebase backend" : "Connecting…"}
         </div>
         <Menu
           ariaLabel="Account"
@@ -193,30 +193,6 @@ export function MobileNav() {
         );
       })}
     </nav>
-  );
-}
-
-/* ── Local-backend banner ───────────────────────────────────────── */
-
-export function BackendBanner() {
-  const { backendKind } = useStore();
-  const router = useRouter();
-  if (backendKind !== "local") return null;
-  return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-line bg-surface-2 px-4 py-2 text-[12.5px] text-ink lg:px-8">
-      <DotMark pattern="bracket" dot={1.6} gap={1.8} />
-      <span>
-        <strong className="font-semibold">Local demo backend.</strong> Data is stored in this browser only. Enable Email/Password
-        in the Firebase console to switch to the live backend.
-      </span>
-      <button
-        type="button"
-        onClick={() => router.push("/settings")}
-        className="underline underline-offset-4 hover:opacity-70"
-      >
-        Details
-      </button>
-    </div>
   );
 }
 

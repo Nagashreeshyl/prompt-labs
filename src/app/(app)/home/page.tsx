@@ -13,7 +13,7 @@ import { useStore } from "@/lib/store";
 export default function HomePage() {
   const router = useRouter();
   const { guardedNav } = useNavGuard();
-  const { user, owned, publicPrompts, collections, favorites, recents, dataLoading, dataError, refreshAll, backendKind } = useStore();
+  const { user, owned, publicPrompts, collections, favorites, recents, dataLoading, dataError, refreshAll } = useStore();
 
   const hour = typeof window === "undefined" ? 12 : new Date().getHours();
   const greeting = greetingForHour(hour);
@@ -244,7 +244,7 @@ export default function HomePage() {
       </section>
 
       <p className="mt-8 font-mono text-[11px] text-ink-3">
-        Signed in as {user?.email} · keyword search only · data stored {backendKind === "firebase" ? "in Firestore" : "in this browser"}
+        Signed in as {user?.email} · keyword search only · data stored in Firestore
       </p>
     </div>
   );

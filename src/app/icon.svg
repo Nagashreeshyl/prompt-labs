@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="12" fill="#111111"/>
+  <!-- Dot-matrix "P": 5 cols x 7 rows of 6px dots on an 8px pitch, inset 10px -->
+  <g fill="#f5f5f3">
+    <!-- row 0 -->
+    <circle cx="14" cy="12" r="3"/><circle cx="22" cy="12" r="3"/><circle cx="30" cy="12" r="3"/><circle cx="38" cy="12" r="3"/>
+    <!-- row 1 -->
+    <circle cx="14" cy="20" r="3"/><circle cx="46" cy="20" r="3"/>
+    <!-- row 2 -->
+    <circle cx="14" cy="28" r="3"/><circle cx="46" cy="28" r="3"/>
+    <!-- row 3 -->
+    <circle cx="14" cy="36" r="3"/><circle cx="22" cy="36" r="3"/><circle cx="30" cy="36" r="3"/><circle cx="38" cy="36" r="3"/>
+    <!-- row 4 -->
+    <circle cx="14" cy="44" r="3"/>
+    <!-- row 5 -->
+    <circle cx="14" cy="52" r="3"/>
+  </g>
+</svg>

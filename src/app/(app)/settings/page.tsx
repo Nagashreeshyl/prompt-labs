@@ -19,7 +19,7 @@ export default function SettingsPage() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteBusy, setDeleteBusy] = useState(false);
 
-  const backendLabel = backendKind === "loading" ? "Detecting…" : backendKind === "firebase" ? "Cloud (Firebase)" : "Local browser mode";
+  const backendLabel = backendKind === "loading" ? "Detecting…" : "Cloud (Firebase)";
 
   return (
     <div className="anim-fade-in">
@@ -130,13 +130,11 @@ export default function SettingsPage() {
             <p className="mt-2 font-mono text-[12.5px] text-ink-2">{backendLabel}</p>
             {backendNote ? <p className="mt-2 text-[13px] leading-relaxed text-ink-2">{backendNote}</p> : null}
             <div className="mt-3 flex flex-wrap gap-1.5">
-              <Tag size="sm">{backendKind === "firebase" ? "Firestore" : "localStorage"}</Tag>
-              <Tag size="sm">{backendKind === "firebase" ? "live sync" : "this browser only"}</Tag>
+              <Tag size="sm">Firestore</Tag>
+              <Tag size="sm">live sync</Tag>
             </div>
             <p className="mt-3 text-[12.5px] leading-relaxed text-ink-2">
-              {backendKind === "firebase"
-                ? "Your prompts sync through your own Firebase project. Server rules keep private prompts readable only by their owner."
-                : "Local mode stores everything in this browser (localStorage). Clearing site data or using another device starts you fresh — export before switching."}
+              Your prompts sync through Firebase. Server rules keep private prompts readable only by their owner.
             </p>
           </section>
 
