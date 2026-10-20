@@ -52,7 +52,7 @@ export function Sidebar() {
         </button>
       </div>
 
-      <nav aria-label="Primary" className="flex-1 overflow-y-auto px-3 pb-4">
+      <nav aria-label="Primary" className="min-h-0 flex-1 overflow-y-auto px-3 pb-4">
         <ul className="space-y-0.5">
           {NAV.map((item) => {
             const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
