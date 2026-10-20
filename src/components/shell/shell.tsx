@@ -93,6 +93,7 @@ export function Sidebar() {
         <Menu
           ariaLabel="Account"
           align="start"
+          side="top"
           items={[
             { label: "Settings", onSelect: () => guardedNav(() => router.push("/settings")) },
             { label: "Export data", onSelect: () => guardedNav(() => router.push("/settings#export")) },

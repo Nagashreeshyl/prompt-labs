@@ -191,11 +191,13 @@ export function Menu({
   trigger,
   items,
   align = "end",
+  side = "bottom",
   ariaLabel = "Menu",
 }: {
   trigger: (props: { onClick: () => void; "aria-expanded": boolean }) => ReactNode;
   items: MenuItem[];
   align?: "start" | "end";
+  side?: "top" | "bottom";
   ariaLabel?: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -224,9 +226,9 @@ export function Menu({
         <div
           role="menu"
           aria-label={ariaLabel}
-          className={`anim-fade-in absolute z-40 mt-1 min-w-[190px] rounded-xs border border-ink bg-canvas py-1 shadow-dialog ${
-            align === "end" ? "right-0" : "left-0"
-          }`}
+          className={`anim-fade-in absolute z-40 min-w-[190px] rounded-xs border border-ink bg-canvas py-1 shadow-dialog ${
+            side === "top" ? "bottom-full mb-1" : "mt-1"
+          } ${align === "end" ? "right-0" : "left-0"}`}
         >
           {items.map((item) => (
             <div key={item.label}>
