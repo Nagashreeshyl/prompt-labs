@@ -25,7 +25,7 @@ export function Sidebar() {
 
   return (
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-[236px] flex-col border-r border-line bg-canvas lg:flex">
-      <div className="relative overflow-hidden border-b border-line px-5 pb-5 pt-6">
+      <div className="relative shrink-0 overflow-hidden border-b border-line px-5 pb-5 pt-6">
         <DotField size="xs" opacity={22} fade="r" className="pointer-events-none absolute inset-y-0 right-0 w-24" />
         <GuardedLink href="/home" className="relative flex items-center gap-2.5" aria-label="Prompt Labs home">
           <DotLogo size={24} />
@@ -33,7 +33,7 @@ export function Sidebar() {
         </GuardedLink>
       </div>
 
-      <div className="px-4 pb-3 pt-4">
+      <div className="shrink-0 px-4 pb-3 pt-4">
         <GuardedLink
           href="/prompts/new"
           className="flex h-9 w-full items-center justify-center gap-2 rounded-xs border border-ink bg-ink text-[13.5px] font-medium text-canvas transition-colors hover:bg-[#1a1a1a]"
@@ -85,7 +85,7 @@ export function Sidebar() {
         </ul>
       </nav>
 
-      <div className="border-t border-line px-4 py-3">
+      <div className="shrink-0 border-t border-line px-4 py-3">
         <div className="mb-2.5 flex items-center gap-2 font-mono text-[10.5px] text-ink-3">
           <DotMark pattern="row" muted dot={1.5} gap={1.6} />
           {backendKind === "firebase" ? "Firebase backend" : "Connecting…"}
