@@ -16,6 +16,7 @@ export interface Backend {
   readonly statusNote: string;
 
   signIn(email: string, password: string): Promise<SessionUser>;
+  signInWithGoogle(): Promise<SessionUser>;
   signUp(email: string, password: string, displayName: string): Promise<SessionUser>;
   signOut(): Promise<void>;
   sendPasswordReset(email: string): Promise<void>;
@@ -66,6 +67,11 @@ const AUTH_MESSAGES: Record<string, string> = {
   "auth/network-request-failed": "Network request failed. Check your connection and retry.",
   "auth/configuration-not-found": "Email/password sign-in is not enabled in the Firebase console yet.",
   "auth/requires-recent-login": "For security, sign in again before completing this action.",
+  "auth/popup-closed-by-user": "The Google sign-in window was closed before finishing.",
+  "auth/cancelled-popup-request": "The Google sign-in window was closed before finishing.",
+  "auth/popup-blocked": "Your browser blocked the Google sign-in popup. Allow popups and retry.",
+  "auth/account-exists-with-different-credential":
+    "An account already exists with this email using a different sign-in method.",
   permission_denied: "The server denied this request. Check that you are signed in and own this data.",
 };
 

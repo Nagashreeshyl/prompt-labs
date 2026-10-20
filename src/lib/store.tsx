@@ -46,6 +46,8 @@ interface StoreValue {
   refreshOwned: () => Promise<void>;
   refreshPublic: () => Promise<void>;
 
+  signInWithGoogle: () => Promise<SessionUser>;
+
   savePrompt: (draft: PromptDraft, id?: string) => Promise<string>;
   deletePrompt: (id: string) => Promise<void>;
   setVisibility: (id: string, visibility: "private" | "public") => Promise<void>;
@@ -208,6 +210,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     if (!user) throw new Error("You must be signed in.");
     return user;
   }, [user]);
+
+  const signInWithGoogle = useCallback<StoreValue["signInWithGoogle"]>(async () => {
+    if (!backend) throw new Error("Backend not ready");
+    return backend.signInWithGoogle();
+  }, [backend]);
 
   const savePrompt = useCallback<StoreValue["savePrompt"]>(
     async (draft, id) => {
@@ -403,6 +410,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       refreshAll,
       refreshOwned,
       refreshPublic,
+      signInWithGoogle,
       savePrompt,
       deletePrompt,
       setVisibility,
@@ -437,6 +445,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       refreshAll,
       refreshOwned,
       refreshPublic,
+      signInWithGoogle,
       savePrompt,
       deletePrompt,
       setVisibility,

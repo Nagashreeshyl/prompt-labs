@@ -20,10 +20,31 @@ export function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string; form?: string }>({});
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   useEffect(() => {
     if (authReady && user) router.replace("/home");
   }, [authReady, user, router]);
+
+  function goNext() {
+    const dest = searchParams.get("next");
+    router.replace(dest && dest.startsWith("/") ? dest : "/home");
+  }
+
+  async function onGoogle() {
+    if (!backend) return;
+    setGoogleLoading(true);
+    setErrors({});
+    try {
+      await backend.signInWithGoogle();
+      toast("Signed in");
+      goNext();
+    } catch (err) {
+      setErrors({ form: friendlyError(err).message });
+    } finally {
+      setGoogleLoading(false);
+    }
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -39,8 +60,7 @@ export function SignInForm() {
     try {
       await backend.signIn(email, password);
       toast("Signed in");
-      const dest = searchParams.get("next");
-      router.replace(dest && dest.startsWith("/") ? dest : "/home");
+      goNext();
     } catch (err) {
       setErrors({ form: friendlyError(err).message });
     } finally {
@@ -107,10 +127,29 @@ export function SignInForm() {
           </div>
         ) : null}
 
-        <Button type="submit" variant="primary" size="lg" block loading={loading} disabled={!backend}>
+        <Button type="submit" variant="primary" size="lg" block loading={loading} disabled={!backend || googleLoading}>
           Sign in
         </Button>
       </form>
+
+      <div className="my-5 flex items-center gap-3" aria-hidden>
+        <span className="h-px flex-1 bg-line" />
+        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-ink-2">or</span>
+        <span className="h-px flex-1 bg-line" />
+      </div>
+
+      <Button
+        type="button"
+        variant="secondary"
+        size="lg"
+        block
+        loading={googleLoading}
+        disabled={!backend || loading}
+        onClick={onGoogle}
+        icon={<GoogleMark />}
+      >
+        Continue with Google
+      </Button>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-2 text-[13px]">
         <Link href="/reset" className="underline underline-offset-4 hover:opacity-70">
@@ -124,6 +163,17 @@ export function SignInForm() {
         </span>
       </div>
     </div>
+  );
+}
+
+function GoogleMark() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden className="shrink-0" fill="currentColor">
+      <path d="M12.24 10.4v3.36h4.66c-.2 1.2-.82 2.22-1.75 2.9l2.82 2.19c1.65-1.52 2.6-3.76 2.6-6.42 0-.62-.06-1.22-.16-1.8z" />
+      <path d="M12.24 20c2.36 0 4.34-.78 5.79-2.11l-2.82-2.19c-.78.52-1.78.83-2.97.83-2.28 0-4.22-1.54-4.91-3.62l-2.91 2.24C5.86 17.98 8.78 20 12.24 20z" />
+      <path d="M7.33 12.91c-.18-.52-.28-1.08-.28-1.66s.1-1.14.27-1.66L4.41 7.35C3.83 8.5 3.5 9.8 3.5 11.25s.33 2.75.91 3.9z" />
+      <path d="M12.24 6.58c1.29 0 2.44.44 3.35 1.31l2.5-2.5C16.57 3.99 14.6 3.25 12.24 3.25c-3.46 0-6.38 2.02-7.83 4.96l2.91 2.24c.69-2.08 2.63-3.87 4.92-3.87z" />
+    </svg>
   );
 }
 

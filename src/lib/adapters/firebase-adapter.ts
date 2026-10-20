@@ -1,9 +1,11 @@
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut as fbSignOut,
   updateProfile,
   type User,
@@ -75,6 +77,17 @@ export const firebaseBackend: Backend = {
   async signIn(email, password) {
     try {
       const cred = await signInWithEmailAndPassword(auth(), email, password);
+      return await ensureProfile(cred.user);
+    } catch (err) {
+      throw friendlyError(err);
+    }
+  },
+
+  async signInWithGoogle() {
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      const cred = await signInWithPopup(auth(), provider);
       return await ensureProfile(cred.user);
     } catch (err) {
       throw friendlyError(err);
